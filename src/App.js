@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 // import Navbar from "./Navbar";
 import "./App.css";
-import ServiceEstimator from "/components/ServiceEstimator.js"
-import BookkeepingEstimator from "/components/BookkeepingEstimator.js";
-import ConsultingQuoteForm from "/components/ConsultingQuoteForm";
+import ServiceEstimator from "./ServiceEstimator.js"
+import BookkeepingEstimator from "./BookkeepingEstimator.js";
+import ConsultingQuoteForm from "./ConsultingQuoteForm";
 
 class Timer extends Component {
   constructor(props) {
