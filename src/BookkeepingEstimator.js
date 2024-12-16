@@ -41,29 +41,16 @@ const BookkeepingEstimator = () => {
   };
 
   return (
-    <div
-      style={{
-        padding: "20px",
-        maxWidth: "800px",
-        margin: "auto",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <h2>Bookkeeping Services Quote Estimator</h2>
+    <div className="p-8 max-w-3xl mx-auto font-sans bg-white rounded-lg shadow-lg border border-gray-200">
+      <h2 className="text-3xl font-semibold mb-6 text-blue-600">Bookkeeping Services Quote Estimator</h2>
 
-      {/* Inputs for user data */}
       {/* Base Price Dropdown */}
-      <label>
-        Base Price:
+      <label className="block mb-6">
+        <span className="text-lg text-gray-800">Base Price:</span>
         <select
           value={basePrice}
           onChange={(e) => setBasePrice(Number(e.target.value))}
-          style={{
-            display: "block",
-            margin: "10px 0",
-            padding: "5px",
-            width: "100%",
-          }}
+          className="block w-full p-3 mt-2 border border-gray-300 rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-600"
         >
           {[0, 500, 750, 1000, 1250, 1500, 1750, 2000].map((price) => (
             <option key={price} value={price}>
@@ -74,25 +61,20 @@ const BookkeepingEstimator = () => {
       </label>
 
       {/* Annual Earnings Input */}
-      <label>
-        Company Annual Earnings Potential (Enter without commas):
+      <label className="block mb-6">
+        <span className="text-lg text-gray-800">Company Annual Earnings Potential (Enter without commas):</span>
         <input
           type="number"
           value={annualEarnings}
           onChange={(e) => setAnnualEarnings(Number(e.target.value))}
-          style={{
-            display: "block",
-            margin: "10px 0",
-            padding: "5px",
-            width: "100%",
-          }}
+          className="block w-full p-3 mt-2 border border-gray-300 rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-600"
           placeholder="Enter annual earnings"
         />
       </label>
 
       {/* AEP Factor Slider */}
-      <label>
-        AEP Factor Multiplier ({(aepFactor * 100).toFixed(2)}%):
+      <label className="block mb-6">
+        <span className="text-lg text-gray-800">AEP Factor Multiplier ({(aepFactor * 100).toFixed(2)}%):</span>
         <input
           type="range"
           min="0.000"
@@ -100,30 +82,25 @@ const BookkeepingEstimator = () => {
           step="0.001"
           value={aepFactor}
           onChange={(e) => setAepFactor(Number(e.target.value))}
-          style={{ display: "block", margin: "10px 0", width: "100%" }}
+          className="block w-full mt-2"
         />
       </label>
 
       {/* Number of Transactions Input */}
-      <label>
-        Number of Transactions:
+      <label className="block mb-6">
+        <span className="text-lg text-gray-800">Number of Transactions: (Per Year Estimation)</span>
         <input
           type="number"
           value={numTransactions}
           onChange={(e) => setNumTransactions(Number(e.target.value))}
-          style={{
-            display: "block",
-            margin: "10px 0",
-            padding: "5px",
-            width: "100%",
-          }}
+          className="block w-full p-3 mt-2 border border-gray-300 rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-600"
           placeholder="Enter number of transactions"
         />
       </label>
 
       {/* Transaction Rate Slider */}
-      <label>
-        Rate Charge per Transaction (${transactionRate.toFixed(2)}):
+      <label className="block mb-6">
+        <span className="text-lg text-gray-800">Rate Charge per Transaction (${transactionRate.toFixed(2)}):</span>
         <input
           type="range"
           min="0.25"
@@ -131,22 +108,17 @@ const BookkeepingEstimator = () => {
           step="0.05"
           value={transactionRate}
           onChange={(e) => setTransactionRate(Number(e.target.value))}
-          style={{ display: "block", margin: "10px 0", width: "100%" }}
+          className="block w-full mt-2"
         />
       </label>
 
       {/* Bookkeeper Hourly Rate Dropdown */}
-      <label>
-        Bookkeeper Hourly Rate:
+      <label className="block mb-6">
+        <span className="text-lg text-gray-800">Bookkeeper Hourly Rate:</span>
         <select
           value={bookkeeperRate}
           onChange={(e) => setBookkeeperRate(Number(e.target.value))}
-          style={{
-            display: "block",
-            margin: "10px 0",
-            padding: "5px",
-            width: "100%",
-          }}
+          className="block w-full p-3 mt-2 border border-gray-300 rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-600"
         >
           {[25, 30, 35, 40, 45, 50].map((rate) => (
             <option key={rate} value={rate}>
@@ -157,17 +129,12 @@ const BookkeepingEstimator = () => {
       </label>
 
       {/* Bookkeeper Man Hours Dropdown */}
-      <label>
-        Bookkeeper Man Hours:
+      <label className="block mb-8">
+        <span className="text-lg text-gray-800">Bookkeeper Man Hours:</span>
         <select
           value={manHours}
           onChange={(e) => setManHours(Number(e.target.value))}
-          style={{
-            display: "block",
-            margin: "10px 0",
-            padding: "5px",
-            width: "100%",
-          }}
+          className="block w-full p-3 mt-2 border border-gray-300 rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-600"
         >
           {[...Array(60)].map((_, i) => {
             const hours = i * 5;
@@ -181,61 +148,34 @@ const BookkeepingEstimator = () => {
       </label>
 
       {/* Display Cost Estimates */}
-      <div style={{ marginTop: "20px", fontSize: "1.2em", fontWeight: "bold" }}>
+      <div className="mt-8 font-semibold text-lg text-gray-800">
         <p>**Cost Estimates**</p>
-        <p>Annual: ${costEstimates.annual}</p>
-        <p>Quarterly: ${costEstimates.quarterly}</p>
-        <p>Monthly: ${costEstimates.monthly}</p>
+        <p className="text-xl">Annual: ${costEstimates.annual}</p>
+        <p className="text-xl">Quarterly: ${costEstimates.quarterly}</p>
+        <p className="text-xl">Monthly: ${costEstimates.monthly}</p>
       </div>
 
       {/* Generate Sales Pitch Button */}
       <button
         onClick={() => setShowPopup(true)}
-        style={{
-          marginTop: "20px",
-          padding: "10px 20px",
-          fontSize: "1em",
-          backgroundColor: "#007BFF",
-          color: "#fff",
-          border: "none",
-          cursor: "pointer",
-        }}
+        className="mt-6 px-8 py-3 text-lg bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         Generate Sales Pitch
       </button>
 
       {/* Popup */}
       {showPopup && (
-        <div
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            backgroundColor: "#fff",
-            padding: "20px",
-            boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
-            zIndex: 1000,
-            maxWidth: "500px",
-            borderRadius: "8px",
-          }}
-        >
-          <h3>Sales Pitch</h3>
-          <p>{generateSalesPitch()}</p>
-          <button
-            onClick={() => setShowPopup(false)}
-            style={{
-              marginTop: "20px",
-              padding: "10px 20px",
-              fontSize: "1em",
-              backgroundColor: "#DC3545",
-              color: "#fff",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            Close
-          </button>
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
+            <h3 className="text-2xl font-semibold mb-4 text-gray-800">Sales Pitch</h3>
+            <p className="text-lg text-gray-700">{generateSalesPitch()}</p>
+            <button
+              onClick={() => setShowPopup(false)}
+              className="mt-6 px-8 py-3 text-lg bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+            >
+              Close
+            </button>
+          </div>
         </div>
       )}
     </div>

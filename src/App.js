@@ -1,53 +1,56 @@
-import React, { Component } from "react";
-// import Navbar from "./Navbar";
-import "./App.css";
-import ServiceEstimator from "./ServiceEstimator.js"
-import BookkeepingEstimator from "./BookkeepingEstimator.js";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import ServiceEstimator from "./ServiceEstimator";
+import BookkeepingEstimator from "./BookkeepingEstimator";
 import ConsultingQuoteForm from "./ConsultingQuoteForm";
+import { Calculator, FileText, Clipboard } from "lucide-react"; // Assuming icons for the tabs
 
-class Timer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      time: props.start,
-    };
-  }
+const tabs = [
+  { id: "serviceEstimator", label: "Service Estimator", icon: Calculator },
+  { id: "bookkeepingEstimator", label: "Bookkeeping Estimator", icon: FileText },
+  { id: "consultingQuoteForm", label: "Consulting Quote", icon: Clipboard },
+];
 
-  //Lifecycle
-  componentDidMount() {
-    this.addInterval = setInterval(() => this.increase(), 1000);
-  }
+const App = () => {
+  const [activeTab, setActiveTab] = useState("serviceEstimator");
 
-  componentWillUnmount() {
-    clearInterval(this.addInterval);
-  }
+  return (
+    <div className="min-h-screen text-white relative overflow-hidden">
+      <div className="relative z-10 container mx-auto px-4 py-16">
+        <motion.h1
+          className="text-4xl font-bold mb-8 text-emerald-400 text-center"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          Investment Quotient App
+        </motion.h1>
 
-  increase() {
-    this.setState((state, props) => ({
-      time: parseInt(state.time) + 1,
-    }));
-  }
+        {/* Tab navigation */}
+        <div className="flex justify-center mb-8">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center px-4 py-2 mx-2 rounded-md transition-colors duration-200 ${
+                activeTab === tab.id
+                  ? "bg-emerald-600 text-white"
+                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+              }`}
+            >
+              <tab.icon className="mr-2 h-5 w-5" />
+              {tab.label}
+            </button>
+          ))}
+        </div>
 
-  render() {
-    return <div> {this.state.time} Detik </div>;
-  }
-}
-
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        {/* <Navbar /> */}
-        <ServiceEstimator />
-        <BookkeepingEstimator />
-        <ConsultingQuoteForm />
-        <header className="App-header">
-          <h1>Cobain</h1>
-          <Timer start="0" />
-        </header>
+        {/* Render the active tab content */}
+        {activeTab === "serviceEstimator" && <ServiceEstimator />}
+        {activeTab === "bookkeepingEstimator" && <BookkeepingEstimator />}
+        {activeTab === "consultingQuoteForm" && <ConsultingQuoteForm />}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default App;

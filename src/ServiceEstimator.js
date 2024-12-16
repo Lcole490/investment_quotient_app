@@ -76,16 +76,16 @@ const ServiceEstimator = () => {
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1>Service Estimator</h1>
+    <div className="p-6 font-sans bg-gray-800 text-white">
+      <h1 className="text-4xl font-bold mb-6 text-center text-emerald-400">Tax Service Estimator</h1>
 
       {/* Base Price Dropdown */}
-      <fieldset style={{ margin: '10px 0', padding: '10px', border: '1px solid #ccc' }}>
-        <legend>Base Price:</legend>
+      <fieldset className="mb-6 p-4 border border-gray-400 rounded-md">
+        <legend className="text-lg font-semibold">Base Price:</legend>
         <select
           value={basePrice}
           onChange={(e) => setBasePrice(Number(e.target.value))}
-          style={{ padding: '5px', width: '100%', fontSize: '16px' }}
+          className="w-full p-3 mt-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
         >
           <option value={0}>Select a Base Price</option>
           {basePrices.map((price) => (
@@ -113,40 +113,32 @@ const ServiceEstimator = () => {
       />
 
       {/* State Selection */}
-      <fieldset style={{ margin: '10px 0', padding: '10px', border: '1px solid #ccc' }}>
-        <legend>State Filing:</legend>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+      <fieldset className="mb-6 p-4 border border-gray-400 rounded-md">
+        <legend className="text-lg font-semibold">State Filing:</legend>
+        <div className="flex flex-wrap gap-4">
           {states.map((state) => (
             <button
               key={state}
               onClick={() => setStateSelections([...stateSelections, state])}
               disabled={stateSelections.includes(state)}
-              style={{
-                padding: '5px 10px',
-                backgroundColor: stateSelections.includes(state) ? '#ccc' : '#4CAF50',
-                color: 'white',
-                border: 'none',
-                cursor: stateSelections.includes(state) ? 'not-allowed' : 'pointer',
-              }}
+              className={`px-4 py-2 rounded-md text-white ${
+                stateSelections.includes(state)
+                  ? 'bg-gray-500 cursor-not-allowed'
+                  : 'bg-emerald-500 hover:bg-emerald-600'
+              }`}
             >
               {state}
             </button>
           ))}
         </div>
 
-        <div style={{ marginTop: '10px' }}>
+        <div className="mt-4">
           {stateSelections.map((state) => (
-            <div key={state} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div key={state} className="flex items-center gap-3 mb-2">
               <span>{state}</span>
               <button
                 onClick={() => removeState(state)}
-                style={{
-                  padding: '2px 5px',
-                  backgroundColor: 'red',
-                  color: 'white',
-                  border: 'none',
-                  cursor: 'pointer',
-                }}
+                className="px-2 py-1 bg-red-500 text-white rounded-md"
               >
                 Remove
               </button>
@@ -158,21 +150,13 @@ const ServiceEstimator = () => {
       {/* Total Calculation */}
       <button
         onClick={calculateTotal}
-        style={{
-          marginTop: '20px',
-          padding: '10px',
-          width: '100%',
-          backgroundColor: '#4CAF50',
-          color: 'white',
-          border: 'none',
-          cursor: 'pointer',
-        }}
+        className="mt-6 w-full p-3 bg-emerald-500 text-white font-semibold rounded-md hover:bg-emerald-600"
       >
         Calculate Total
       </button>
 
       {/* Total Display */}
-      <div style={{ marginTop: '20px', fontSize: '1.2em', fontWeight: 'bold' }}>
+      <div className="mt-4 text-xl font-bold text-center">
         Total Estimate: ${total}
       </div>
     </div>
@@ -192,24 +176,22 @@ const OptionsSection = ({ title, options, selections, setSelections }) => {
   };
 
   return (
-    <fieldset style={{ margin: '10px 0', padding: '10px', border: '1px solid #ccc' }}>
-      <legend>{title}:</legend>
+    <fieldset className="mb-6 p-4 border border-gray-400 rounded-md">
+      <legend className="text-lg font-semibold">{title}:</legend>
       {options.map((option) => (
-        <div key={option.key} style={{ marginBottom: '10px' }}>
-          <label>
-            <input
-              type="checkbox"
-              onChange={(e) => {
-                if (!e.target.checked) {
-                  setSelections(selections.filter((item) => item.key !== option.key));
-                } else {
-                  setSelections([...selections, { key: option.key, quantity: 1 }]);
-                }
-              }}
-              style={{ marginRight: '10px' }}
-            />
-            {option.label} (${option.value})
-          </label>
+        <div key={option.key} className="mb-4 flex items-center">
+          <input
+            type="checkbox"
+            onChange={(e) => {
+              if (!e.target.checked) {
+                setSelections(selections.filter((item) => item.key !== option.key));
+              } else {
+                setSelections([...selections, { key: option.key, quantity: 1 }]);
+              }
+            }}
+            className="mr-3"
+          />
+          <label className="flex-1 text-lg">{option.label} (${option.value})</label>
           {selections.find((item) => item.key === option.key) && (
             <input
               type="number"
@@ -217,10 +199,8 @@ const OptionsSection = ({ title, options, selections, setSelections }) => {
               value={
                 selections.find((item) => item.key === option.key)?.quantity || 1
               }
-              onChange={(e) =>
-                handleOptionChange(option.key, parseInt(e.target.value) || 1)
-              }
-              style={{ marginLeft: '10px', width: '60px' }}
+              onChange={(e) => handleOptionChange(option.key, Number(e.target.value))}
+              className="w-16 p-2 text-black rounded-md"
             />
           )}
         </div>
